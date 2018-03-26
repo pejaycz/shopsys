@@ -633,6 +633,11 @@ services:
   Shopsys\FrameworkBundle\Model\Product\ProductFacade:
     public: true
 
+  Shopsys\FrameworkBundle\Model\Product\ProductFactory: ~
+
+  Shopsys\FrameworkBundle\Model\Product\ProductFactoryInterface:
+    alias: Shopsys\FrameworkBundle\Model\Product\ProductFactory
+
   Shopsys\FrameworkBundle\Model\Product\ProductHiddenRecalculator:
     public: true
 

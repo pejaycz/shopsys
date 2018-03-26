@@ -15,3 +15,8 @@ services:
   Shopsys\ShopBundle\Form\Front\Order\DomainAwareOrderFlowFactory: ~
 
   Shopsys\FrameworkBundle\Model\Order\OrderFlowFactoryInterface: '@Shopsys\ShopBundle\Form\Front\Order\DomainAwareOrderFlowFactory'
+
+  Shopsys\ShopBundle\Model\Product\ProductFactory: ~
+
+  Shopsys\FrameworkBundle\Model\Product\ProductFactoryInterface:
+    alias: Shopsys\ShopBundle\Model\Product\ProductFactory

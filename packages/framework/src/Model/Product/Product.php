@@ -295,7 +295,7 @@ class Product extends AbstractTranslatableEntity
         $this->partno = $productData->partno;
         $this->ean = $productData->ean;
         $this->priceCalculationType = $productData->priceCalculationType;
-        if ($this->getPriceCalculationType() === self::PRICE_CALCULATION_TYPE_AUTO) {
+        if ($this->getPriceCalculationType() === static::PRICE_CALCULATION_TYPE_AUTO) {
             $this->setPrice($productData->price);
         } else {
             $this->setPrice(null);
@@ -326,9 +326,9 @@ class Product extends AbstractTranslatableEntity
 
         $this->variants = new ArrayCollection();
         if ($variants === null) {
-            $this->variantType = self::VARIANT_TYPE_NONE;
+            $this->variantType = static::VARIANT_TYPE_NONE;
         } else {
-            $this->variantType = self::VARIANT_TYPE_MAIN;
+            $this->variantType = static::VARIANT_TYPE_MAIN;
             $this->addVariants($variants);
         }
     }
@@ -339,7 +339,7 @@ class Product extends AbstractTranslatableEntity
      */
     public static function create(ProductData $productData)
     {
-        return new self($productData, null);
+        return new static($productData, null);
     }
 
     /**
@@ -349,7 +349,7 @@ class Product extends AbstractTranslatableEntity
      */
     public static function createMainVariant(ProductData $productData, array $variants)
     {
-        return new self($productData, $variants);
+        return new static($productData, $variants);
     }
 
     /**
@@ -381,7 +381,7 @@ class Product extends AbstractTranslatableEntity
             $this->partno = $productData->partno;
             $this->ean = $productData->ean;
             $this->priceCalculationType = $productData->priceCalculationType;
-            if ($this->getPriceCalculationType() === self::PRICE_CALCULATION_TYPE_AUTO) {
+            if ($this->getPriceCalculationType() === static::PRICE_CALCULATION_TYPE_AUTO) {
                 $this->setPrice($productData->price);
             } else {
                 $this->setPrice(null);
@@ -771,7 +771,7 @@ class Product extends AbstractTranslatableEntity
      */
     public function isMainVariant()
     {
-        return $this->variantType === self::VARIANT_TYPE_MAIN;
+        return $this->variantType === static::VARIANT_TYPE_MAIN;
     }
 
     /**
@@ -779,7 +779,7 @@ class Product extends AbstractTranslatableEntity
      */
     public function isVariant()
     {
-        return $this->variantType === self::VARIANT_TYPE_VARIANT;
+        return $this->variantType === static::VARIANT_TYPE_VARIANT;
     }
 
     /**
@@ -841,7 +841,7 @@ class Product extends AbstractTranslatableEntity
         if (!$this->isVariant()) {
             throw new \Shopsys\FrameworkBundle\Model\Product\Exception\ProductIsNotVariantException();
         }
-        $this->variantType = self::VARIANT_TYPE_NONE;
+        $this->variantType = static::VARIANT_TYPE_NONE;
         $this->mainVariant->variants->removeElement($this);
         $this->mainVariant = null;
     }
@@ -852,7 +852,7 @@ class Product extends AbstractTranslatableEntity
      */
     protected function setMainVariant(self $mainVariant)
     {
-        $this->variantType = self::VARIANT_TYPE_VARIANT;
+        $this->variantType = static::VARIANT_TYPE_VARIANT;
         $this->mainVariant = $mainVariant;
     }
 

@@ -51,6 +51,12 @@ doctrine:
         alias: ShopsysFrameworkBundle
         prefix: Shopsys\FrameworkBundle\Model
         is_bundle: false
+      ShopsysShopBundle:
+        type: annotation
+        dir: '%kernel.project_dir%/src/Shopsys/ShopBundle/Model'
+        alias: ShopsysShopBundle
+        prefix: Shopsys\ShopBundle\Model
+        is_bundle: false
       ShopsysFrameworkBundleComponent:
         type: annotation
         dir: '%shopsys.framework.root_dir%/src/Component'
