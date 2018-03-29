@@ -3,31 +3,31 @@
 namespace Shopsys\ProductFeed\HeurekaBundle\Model\Category;
 
 use Shopsys\Plugin\PluginCrudExtensionInterface;
-use Shopsys\ProductFeed\HeurekaBundle\DataStorageProvider;
+use Shopsys\ProductFeed\HeurekaBundle\Model\HeurekaCategory\HeurekaCategoryFacade;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class CategoryCrudExtension implements PluginCrudExtensionInterface
 {
-    /**
-     * @var \Shopsys\ProductFeed\HeurekaBundle\DataStorageProvider
-     */
-    private $dataStorageProvider;
-
     /**
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     private $translator;
 
     /**
-     * @param \Shopsys\ProductFeed\HeurekaBundle\DataStorageProvider $dataStorageProvider
+     * @var \Shopsys\ProductFeed\HeurekaBundle\Model\HeurekaCategory\HeurekaCategoryFacade
+     */
+    private $heurekaCategoryFacade;
+
+    /**
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param \Shopsys\ProductFeed\HeurekaBundle\Model\HeurekaCategory\HeurekaCategoryFacade $heurekaCategoryFacade
      */
     public function __construct(
-        DataStorageProvider $dataStorageProvider,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        HeurekaCategoryFacade $heurekaCategoryFacade
     ) {
         $this->translator = $translator;
-        $this->dataStorageProvider = $dataStorageProvider;
+        $this->heurekaCategoryFacade = $heurekaCategoryFacade;
     }
 
     /**
@@ -52,7 +52,14 @@ class CategoryCrudExtension implements PluginCrudExtensionInterface
      */
     public function getData($categoryId)
     {
-        return $this->getCategoryDataStorage()->get($categoryId) ?? [];
+        $heurekaCategory = $this->heurekaCategoryFacade->findByCategoryId($categoryId);
+
+        $pluginData = [];
+        if ($heurekaCategory !== null) {
+            $pluginData['heureka_category'] = $heurekaCategory->getId();
+        }
+
+        return $pluginData;
     }
 
     /**
@@ -61,7 +68,14 @@ class CategoryCrudExtension implements PluginCrudExtensionInterface
      */
     public function saveData($categoryId, $data)
     {
-        $this->getCategoryDataStorage()->set($categoryId, $data);
+        if (empty($data) || !array_key_exists('heureka_category', $data) || empty($data['heureka_category'])) {
+            $this->heurekaCategoryFacade->removeHeurekaCategoryForCategoryId($categoryId);
+        } else {
+            $heurekaCategoryId = (int)$data['heureka_category'];
+
+            $heurekaCategory = $this->heurekaCategoryFacade->getOneById($heurekaCategoryId);
+            $this->heurekaCategoryFacade->changeHeurekaCategoryForCategoryId($categoryId, $heurekaCategory);
+        }
     }
 
     /**
@@ -69,14 +83,6 @@ class CategoryCrudExtension implements PluginCrudExtensionInterface
      */
     public function removeData($categoryId)
     {
-        $this->getCategoryDataStorage()->remove($categoryId);
-    }
-
-    /**
-     * @return \Shopsys\Plugin\DataStorageInterface
-     */
-    private function getCategoryDataStorage()
-    {
-        return $this->dataStorageProvider->getCategoryDataStorage();
+        $this->heurekaCategoryFacade->removeHeurekaCategoryForCategoryId($categoryId);
     }
 }
