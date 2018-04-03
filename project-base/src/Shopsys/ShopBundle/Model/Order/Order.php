@@ -18,4 +18,12 @@ class Order extends BaseOrder
      */
     protected $coolAttribute;
 
+    /**
+     * @var \Shopsys\ShopBundle\Model\Order\Code
+     *
+     * @ORM\OneToOne(targetEntity="Shopsys\ShopBundle\Model\Order\Code")
+     * @ORM\JoinColumn(name="code_id", referencedColumnName="id", nullable=true)
+     */
+    protected $code;
+
 }
