@@ -166,6 +166,7 @@ class ProductFacade
         $data = $this->em->getClassMetadata(\Shopsys\ShopBundle\Model\Product\Product::class);
         d($data->fieldMappings['catnum']);
         d($product);
+        d($product->getUsers());
         return $product;
     }
 

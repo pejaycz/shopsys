@@ -2,6 +2,7 @@
 
 namespace Shopsys\ShopBundle\Model\Product;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shopsys\FrameworkBundle\Model\Product\Product as BaseProduct;
 
@@ -34,6 +35,14 @@ class Product extends BaseProduct
     protected $vat;
 
     /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Shopsys\FrameworkBundle\Model\Customer\User")
+     * @ORM\JoinTable(name="products_users")
+     */
+    protected $users;
+
+    /**
      * @return int
      */
     public function getExtId()
@@ -48,4 +57,13 @@ class Product extends BaseProduct
     {
         $this->extId = $extId;
     }
+
+    /**
+     * @return \Shopsys\FrameworkBundle\Model\Customer\User[]
+     */
+    public function getUsers()
+    {
+        return $this->users->toArray();
+    }
+
 }
