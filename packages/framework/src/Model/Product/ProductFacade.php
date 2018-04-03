@@ -162,7 +162,11 @@ class ProductFacade
      */
     public function getById($productId)
     {
-        return $this->productRepository->getById($productId);
+        $product = $this->productRepository->getById($productId);
+        $data = $this->em->getClassMetadata(\Shopsys\ShopBundle\Model\Product\Product::class);
+        d($data->fieldMappings['catnum']);
+        d($product);
+        return $product;
     }
 
     /**
