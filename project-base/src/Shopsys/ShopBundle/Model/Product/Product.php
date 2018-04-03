@@ -27,6 +27,13 @@ class Product extends BaseProduct
     protected $catnum;
 
     /**
+     * @var string null
+     *
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $vat;
+
+    /**
      * @return int
      */
     public function getExtId()

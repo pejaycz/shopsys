@@ -171,6 +171,7 @@ class VatRepository
             FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p
             WHERE p.vat= :vat')
             ->setParameter('vat', $vat);
+        d($query->getSQL());
         return $query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR) > 0;
     }
 
