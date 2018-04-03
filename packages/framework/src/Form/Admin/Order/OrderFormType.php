@@ -312,7 +312,7 @@ class OrderFormType extends AbstractType
     {
         $resolver
             ->setRequired('order')
-            ->setAllowedTypes('order', Order::class)
+            ->setAllowedTypes('order', \Shopsys\ShopBundle\Model\Order\Order::class)
             ->setDefaults([
                 'data_class' => OrderData::class,
                 'attr' => ['novalidate' => 'novalidate'],

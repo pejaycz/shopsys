@@ -109,6 +109,7 @@ class OrderController extends AdminBaseController
     public function editAction(Request $request, $id)
     {
         $order = $this->orderFacade->getById($id);
+        d($order);
 
         $orderData = new OrderData();
         $orderData->setFromEntity($order);

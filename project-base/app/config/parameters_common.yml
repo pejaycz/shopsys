@@ -19,4 +19,7 @@ parameters:
   shopsys.migrations.dir: '%kernel.project_dir%/src/Shopsys/ShopBundle/Migrations'
   shopsys.migrations.namespace: 'Shopsys\ShopBundle\Migrations'
   shopsys.entity_extension.map:
-    Shopsys\FrameworkBundle\Model\Product\Product: Shopsys\ShopBundle\Model\Product\Product
+    {
+      Shopsys\FrameworkBundle\Model\Product\Product: Shopsys\ShopBundle\Model\Product\Product,
+      Shopsys\FrameworkBundle\Model\Order\Order: Shopsys\ShopBundle\Model\Order\Order
+    }

@@ -125,7 +125,7 @@ class UserRepository
             ->where('u.domainId = :selectedDomainId')
             ->setParameter('selectedDomainId', $domainId)
             ->join('u.billingAddress', 'ba')
-            ->leftJoin(Order::class, 'o', 'WITH', 'o.customer = u.id AND o.deleted = :deleted')
+            ->leftJoin(\Shopsys\ShopBundle\Model\Order\Order::class, 'o', 'WITH', 'o.customer = u.id AND o.deleted = :deleted')
             ->setParameter('deleted', false)
             ->leftJoin(PricingGroup::class, 'pg', 'WITH', 'pg.id = u.pricingGroup')
             ->groupBy('u.id');

@@ -36,7 +36,7 @@ class OrderListAdminRepository
                     THEN o.companyName
                     ELSE CONCAT(o.lastName, \' \', o.firstName)
                 END) AS customerName')
-            ->from(Order::class, 'o')
+            ->from(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->where('o.deleted = :deleted')
             ->join('o.status', 'os')
             ->join('os.translations', 'ost', Join::WITH, 'ost.locale = :locale')

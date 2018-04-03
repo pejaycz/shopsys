@@ -37,7 +37,7 @@ class OrderRepository
      */
     private function getOrderRepository()
     {
-        return $this->em->getRepository(Order::class);
+        return $this->em->getRepository(\Shopsys\ShopBundle\Model\Order\Order::class);
     }
 
     /**
@@ -47,7 +47,7 @@ class OrderRepository
     {
         return $this->em->createQueryBuilder()
             ->select('o')
-            ->from(Order::class, 'o')
+            ->from(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->where('o.deleted = FALSE');
     }
 
@@ -111,7 +111,7 @@ class OrderRepository
         $queryBuilder = $this->em->createQueryBuilder();
         $queryBuilder
             ->select('o.id')
-            ->from(Order::class, 'o')
+            ->from(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->setMaxResults(1)
             ->where('o.status = :status')
             ->setParameter('status', $orderStatus->getId());
@@ -179,7 +179,7 @@ class OrderRepository
     {
         return $this->em->createQueryBuilder()
             ->select('o, oi, os, ost, c')
-            ->from(Order::class, 'o')
+            ->from(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->join('o.items', 'oi')
             ->join('o.status', 'os')
             ->join('os.translations', 'ost')
@@ -251,7 +251,7 @@ class OrderRepository
         return $this->em->createQueryBuilder()
             ->select('c')
             ->from(Currency::class, 'c')
-            ->join(Order::class, 'o', Join::WITH, 'o.currency = c.id')
+            ->join(\Shopsys\ShopBundle\Model\Order\Order::class, 'o', Join::WITH, 'o.currency = c.id')
             ->groupBy('c')
             ->getQuery()->execute();
     }

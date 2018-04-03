@@ -110,7 +110,7 @@ class OrderStatusRepository
     public function replaceOrderStatus(OrderStatus $oldOrderStatus, OrderStatus $newOrderStatus)
     {
         $this->em->createQueryBuilder()
-            ->update(Order::class, 'o')
+            ->update(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->set('o.status', ':newOrderStatus')->setParameter('newOrderStatus', $newOrderStatus)
             ->where('o.status = :oldOrderStatus')->setParameter('oldOrderStatus', $oldOrderStatus)
             ->getQuery()->execute();

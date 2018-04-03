@@ -14,7 +14,7 @@ class OrderProductTest extends TestCase
 {
     public function testEditWithProduct()
     {
-        $orderMock = $this->createMock(Order::class);
+        $orderMock = $this->createMock(\Shopsys\ShopBundle\Model\Order\Order::class);
         $productMock = $this->createMock(\Shopsys\ShopBundle\Model\Product\Product::class);
         $productPrice = new Price(0, 0);
 
@@ -37,7 +37,7 @@ class OrderProductTest extends TestCase
 
     public function testEditWithoutProduct()
     {
-        $orderMock = $this->createMock(Order::class);
+        $orderMock = $this->createMock(\Shopsys\ShopBundle\Model\Order\Order::class);
         $productPrice = new Price(0, 0);
 
         $orderItemData = new OrderItemData();
@@ -63,7 +63,7 @@ class OrderProductTest extends TestCase
         $mainVariant = Product::createMainVariant(new ProductData(), [$variant]);
         $productPrice = new Price(0, 0);
 
-        $orderMock = $this->createMock(Order::class);
+        $orderMock = $this->createMock(\Shopsys\ShopBundle\Model\Order\Order::class);
 
         $this->expectException(\Shopsys\FrameworkBundle\Model\Order\Item\Exception\MainVariantCannotBeOrderedException::class);
 

@@ -14,7 +14,7 @@ class GroupedScalarHydratorTest extends DatabaseTestCase
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('o, oi')
-            ->from(Order::class, 'o')
+            ->from(\Shopsys\ShopBundle\Model\Order\Order::class, 'o')
             ->join(OrderItem::class, 'oi', Join::WITH, 'oi.order = o')
             ->setMaxResults(1);
 

@@ -47,7 +47,7 @@ class OrderPriceCalculationTest extends TestCase
 
         $priceCalculation = new OrderPriceCalculation($orderItemPriceCalculationMock, $roundingMock);
 
-        $orderMock = $this->getMockBuilder(Order::class)
+        $orderMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Order\Order::class)
             ->setMethods(['__construct', 'getItems'])
             ->disableOriginalConstructor()
             ->getMock();
