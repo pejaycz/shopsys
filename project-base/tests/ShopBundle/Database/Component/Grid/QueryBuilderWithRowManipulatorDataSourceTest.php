@@ -4,7 +4,6 @@ namespace Tests\ShopBundle\Database\Component\Grid;
 
 use Shopsys\FrameworkBundle\Component\Grid\QueryBuilderWithRowManipulatorDataSource;
 use Shopsys\FrameworkBundle\DataFixtures\Demo\ProductDataFixture;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Tests\ShopBundle\Test\DatabaseTestCase;
 
 class QueryBuilderWithRowManipulatorDataSourceTest extends DatabaseTestCase
@@ -16,7 +15,7 @@ class QueryBuilderWithRowManipulatorDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p');
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p');
 
         $dataSource = new QueryBuilderWithRowManipulatorDataSource($qb, 'p.id', function ($row) {
             $row['newField'] = 'newValue';
@@ -37,7 +36,7 @@ class QueryBuilderWithRowManipulatorDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->where('p.id >= 1 AND p.id <= 10')
             ->setFirstResult(8)
             ->setMaxResults(5);
@@ -59,7 +58,7 @@ class QueryBuilderWithRowManipulatorDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->setMaxResults(5);
 
         $dataSource = new QueryBuilderWithRowManipulatorDataSource($qb, 'p.id', function ($row) {

@@ -4,7 +4,6 @@ namespace Tests\ShopBundle\Unit\Model\Product\Pricing;
 
 use PHPUnit\Framework\TestCase;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceRecalculationScheduler;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductRepository;
 
 class ProductPriceRecalculationSchedulerTest extends TestCase
@@ -15,7 +14,7 @@ class ProductPriceRecalculationSchedulerTest extends TestCase
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -34,7 +33,7 @@ class ProductPriceRecalculationSchedulerTest extends TestCase
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -49,7 +48,7 @@ class ProductPriceRecalculationSchedulerTest extends TestCase
 
     public function testAllProductsCanBeScheduledForDelayedRecalculation()
     {
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();

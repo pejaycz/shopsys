@@ -20,6 +20,11 @@ class ProductData
     /**
      * @var string|null
      */
+    public $extId;
+
+    /**
+     * @var string|null
+     */
     public $partno;
 
     /**

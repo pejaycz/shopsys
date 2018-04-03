@@ -10,13 +10,12 @@ use Shopsys\FrameworkBundle\Model\Product\Availability\AvailabilityData;
 use Shopsys\FrameworkBundle\Model\Product\Availability\ProductAvailabilityCalculation;
 use Shopsys\FrameworkBundle\Model\Product\Availability\ProductAvailabilityRecalculationScheduler;
 use Shopsys\FrameworkBundle\Model\Product\Availability\ProductAvailabilityRecalculator;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 
 class ProductAvailabilityRecalculatorTest extends TestCase
 {
     public function testRunImmediatelyRecalculations()
     {
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -55,11 +54,11 @@ class ProductAvailabilityRecalculatorTest extends TestCase
 
     public function testRecalculateAvailabilityForVariant()
     {
-        $variantMock = $this->getMockBuilder(Product::class)
+        $variantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->disableOriginalConstructor()
             ->setMethods(['isVariant', 'getMainVariant', 'setCalculatedAvailability'])
             ->getMock();
-        $mainVariantMock = $this->getMockBuilder(Product::class)
+        $mainVariantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->disableOriginalConstructor()
             ->setMethods(['setCalculatedAvailability'])
             ->getMock();

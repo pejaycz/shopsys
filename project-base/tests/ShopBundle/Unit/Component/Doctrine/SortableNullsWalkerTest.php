@@ -4,7 +4,6 @@ namespace Tests\ShopBundle\Unit\Component\Doctrine;
 
 use Doctrine\ORM\Query;
 use Shopsys\FrameworkBundle\Component\Doctrine\SortableNullsWalker;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Tests\ShopBundle\Test\FunctionalTestCase;
 
 class SortableNullsWalkerTest extends FunctionalTestCase
@@ -18,7 +17,7 @@ class SortableNullsWalkerTest extends FunctionalTestCase
 
         $queryBuilder
             ->select('p.id')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->orderBy('p.id', 'ASC');
 
         $query = $queryBuilder->getQuery();
@@ -36,7 +35,7 @@ class SortableNullsWalkerTest extends FunctionalTestCase
 
         $queryBuilder
             ->select('p.id')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->orderBy('p.id', 'DESC');
 
         $query = $queryBuilder->getQuery();
@@ -54,7 +53,7 @@ class SortableNullsWalkerTest extends FunctionalTestCase
 
         $queryBuilder
             ->select('p.id')
-            ->from(Product::class, 'p');
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p');
 
         $queryWithoutWalker = $queryBuilder->getQuery();
         $queryWithoutWalker->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, SortableNullsWalker::class);

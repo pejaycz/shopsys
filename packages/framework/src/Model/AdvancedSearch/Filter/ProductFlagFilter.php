@@ -6,7 +6,6 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Shopsys\FrameworkBundle\Model\AdvancedSearch\AdvancedSearchFilterInterface;
 use Shopsys\FrameworkBundle\Model\Product\Flag\FlagFacade;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductFlagFilter implements AdvancedSearchFilterInterface
@@ -81,7 +80,7 @@ class ProductFlagFilter implements AdvancedSearchFilterInterface
         }
 
         if (count($isNotFlags) > 0) {
-            $subQuery = 'SELECT flag_p.id FROM ' . Product::class . ' flag_p JOIN flag_p.flags _f WITH _f.id IN (:isNotFlags)';
+            $subQuery = 'SELECT flag_p.id FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' flag_p JOIN flag_p.flags _f WITH _f.id IN (:isNotFlags)';
             $queryBuilder->andWhere('p.id NOT IN (' . $subQuery . ')');
             $queryBuilder->setParameter('isNotFlags', $isNotFlags);
         }

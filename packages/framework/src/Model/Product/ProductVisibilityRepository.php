@@ -62,7 +62,7 @@ class ProductVisibilityRepository
             ->getDQL();
 
         $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.recalculateVisibility', 'TRUE')
             ->where('p.recalculateVisibility = FALSE')
             ->andWhere('p IN (' . $affectedProductsDql . ')')

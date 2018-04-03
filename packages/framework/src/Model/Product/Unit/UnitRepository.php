@@ -4,7 +4,6 @@ namespace Shopsys\FrameworkBundle\Model\Product\Unit;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 
 class UnitRepository
 {
@@ -91,7 +90,7 @@ class UnitRepository
     {
         $qb = $this->em->createQueryBuilder()
             ->select('COUNT(p)')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->where('p.unit = :unit')->setParameter('unit', $unit);
 
         return $qb->getQuery()->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR) > 0;
@@ -104,7 +103,7 @@ class UnitRepository
     public function replaceUnit(Unit $oldUnit, Unit $newUnit)
     {
         $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.unit', ':newUnit')->setParameter('newUnit', $newUnit)
             ->where('p.unit = :oldUnit')->setParameter('oldUnit', $oldUnit)
             ->getQuery()->execute();

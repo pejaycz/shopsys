@@ -15,7 +15,6 @@ use Shopsys\FrameworkBundle\Model\Category\Category;
 use Shopsys\FrameworkBundle\Model\Category\CategoryRepository;
 use Shopsys\FrameworkBundle\Model\Product\Availability\ProductAvailabilityRecalculationScheduler;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceRecalculationScheduler;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductEditData;
 use Shopsys\FrameworkBundle\Model\Product\ProductFacade;
 use Shopsys\FrameworkBundle\Model\Product\ProductVariantFacade;
@@ -253,7 +252,7 @@ class ProductDataFixture
     private function getProductByCatnum($catnum)
     {
         if (!array_key_exists($catnum, $this->productsByCatnum)) {
-            $query = $this->em->createQuery('SELECT p FROM ' . Product::class . ' p WHERE p.catnum = :catnum')
+            $query = $this->em->createQuery('SELECT p FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p WHERE p.catnum = :catnum')
                 ->setParameter('catnum', $catnum);
             $this->productsByCatnum[$catnum] = $query->getSingleResult();
         }

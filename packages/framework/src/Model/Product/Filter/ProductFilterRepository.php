@@ -161,7 +161,7 @@ class ProductFilterRepository
 
         $flagsQueryBuilder
             ->select('1')
-            ->from(Product::class, 'pf')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'pf')
             ->join('pf.flags', 'f')
             ->where('pf = p')
             ->andWhere('f IN (:flags)')->setParameter('flags', $flags);
@@ -180,7 +180,7 @@ class ProductFilterRepository
 
         $brandsQueryBuilder
             ->select('1')
-            ->from(Product::class, 'pb')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'pb')
             ->join('pb.brand', 'b')
             ->where('pb = p')
             ->andWhere('b IN (:brands)')->setParameter('brands', $brands);

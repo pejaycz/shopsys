@@ -96,7 +96,7 @@ class InputPriceRecalculator
     {
         $query = $this->em->createQueryBuilder()
             ->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->getQuery();
 
         $this->batchProcessQuery($query, function (Product $product) use ($toInputPriceType) {

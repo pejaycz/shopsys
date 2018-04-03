@@ -261,7 +261,7 @@ class ProductEditFormType extends AbstractType
     {
         $resolver
             ->setRequired('product')
-            ->setAllowedTypes('product', [Product::class, 'null'])
+            ->setAllowedTypes('product', [\Shopsys\ShopBundle\Model\Product\Product::class, 'null'])
             ->setDefaults([
                 'data_class' => ProductEditData::class,
                 'attr' => ['novalidate' => 'novalidate'],

@@ -4,7 +4,6 @@ namespace Tests\ShopBundle\Database\Component\Grid;
 
 use Shopsys\FrameworkBundle\Component\Grid\QueryBuilderDataSource;
 use Shopsys\FrameworkBundle\DataFixtures\Demo\ProductDataFixture;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Tests\ShopBundle\Test\DatabaseTestCase;
 
 class QueryBuilderDataSourceTest extends DatabaseTestCase
@@ -16,7 +15,7 @@ class QueryBuilderDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p');
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p');
 
         $queryBuilderDataSource = new QueryBuilderDataSource($qb, 'p.id');
 
@@ -33,7 +32,7 @@ class QueryBuilderDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->where('p.id >= 1 AND p.id <= 10')
             ->setFirstResult(8)
             ->setMaxResults(5);
@@ -52,7 +51,7 @@ class QueryBuilderDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->setMaxResults(5);
 
         $queryBuilderDataSource = new QueryBuilderDataSource($qb, 'p.id');
@@ -74,7 +73,7 @@ class QueryBuilderDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->setMaxResults(10);
 
         $queryBuilderDataSource = new QueryBuilderDataSource($qb, 'p.id');
@@ -99,7 +98,7 @@ class QueryBuilderDataSourceTest extends DatabaseTestCase
 
         $qb = $em->createQueryBuilder();
         $qb->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->setMaxResults(10);
 
         $queryBuilderDataSource = new QueryBuilderDataSource($qb, 'p.id');

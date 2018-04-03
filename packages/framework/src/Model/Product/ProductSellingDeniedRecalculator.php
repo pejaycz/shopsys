@@ -63,7 +63,7 @@ class ProductSellingDeniedRecalculator
     private function calculateIndependent(array $products)
     {
         $qb = $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.calculatedSellingDenied', '
                 CASE
                     WHEN p.usingStock = TRUE
@@ -87,14 +87,14 @@ class ProductSellingDeniedRecalculator
     private function propagateMainVariantSellingDeniedToVariants(array $products)
     {
         $qb = $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.calculatedSellingDenied', 'TRUE')
             ->andWhere('p.variantType = :variantTypeVariant')
             ->andWhere('p.calculatedSellingDenied = FALSE')
             ->andWhere(
                 'EXISTS (
                     SELECT 1
-                    FROM ' . Product::class . ' m
+                    FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' m
                     WHERE m = p.mainVariant
                         AND m.calculatedSellingDenied = TRUE
                 )'
@@ -113,14 +113,14 @@ class ProductSellingDeniedRecalculator
     private function propagateVariantsSellingDeniedToMainVariant(array $products)
     {
         $qb = $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.calculatedSellingDenied', 'TRUE')
             ->andWhere('p.variantType = :variantTypeMain')
             ->andWhere('p.calculatedSellingDenied = FALSE')
             ->andWhere(
                 'NOT EXISTS (
                     SELECT 1
-                    FROM ' . Product::class . ' v
+                    FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' v
                     WHERE v.mainVariant = p
                         AND v.calculatedSellingDenied = FALSE
                 )'

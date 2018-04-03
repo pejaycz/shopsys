@@ -4,7 +4,6 @@ namespace Tests\ShopBundle\Unit\Model\Product\Availability;
 
 use PHPUnit\Framework\TestCase;
 use Shopsys\FrameworkBundle\Model\Product\Availability\ProductAvailabilityRecalculationScheduler;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductRepository;
 
 class ProductAvailabilityRecalculationSchedulerTest extends TestCase
@@ -15,7 +14,7 @@ class ProductAvailabilityRecalculationSchedulerTest extends TestCase
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -34,7 +33,7 @@ class ProductAvailabilityRecalculationSchedulerTest extends TestCase
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();
@@ -49,7 +48,7 @@ class ProductAvailabilityRecalculationSchedulerTest extends TestCase
 
     public function testScheduleRecalculateAvailabilityForAllProducts()
     {
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(null)
             ->disableOriginalConstructor()
             ->getMock();

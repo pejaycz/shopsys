@@ -38,7 +38,7 @@ class ProductListAdminRepository
         $queryBuilder = $this->em->createQueryBuilder();
         $queryBuilder
             ->select('p, pt, COALESCE(pmip.inputPrice, p.price) AS priceForProductList')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->leftJoin(
                 ProductManualInputPrice::class,
                 'pmip',

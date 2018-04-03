@@ -6,7 +6,6 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Shopsys\FrameworkBundle\Component\Doctrine\SortableNullsWalker;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 
 class AvailabilityRepository
 {
@@ -94,7 +93,7 @@ class AvailabilityRepository
         $queryBuilder = $this->em->createQueryBuilder();
         $queryBuilder
             ->select('p.id')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->setMaxResults(1)
             ->where('p.availability = :availability OR p.outOfStockAvailability = :availability')
             ->setParameter('availability', $availability->getId());
@@ -109,19 +108,19 @@ class AvailabilityRepository
     public function replaceAvailability(Availability $oldAvailability, Availability $newAvailability)
     {
         $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.availability', ':newAvailability')->setParameter('newAvailability', $newAvailability)
             ->where('p.availability = :oldAvailability')->setParameter('oldAvailability', $oldAvailability)
             ->getQuery()->execute();
 
         $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.outOfStockAvailability', ':newAvailability')->setParameter('newAvailability', $newAvailability)
             ->where('p.outOfStockAvailability = :oldAvailability')->setParameter('oldAvailability', $oldAvailability)
             ->getQuery()->execute();
 
         $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.calculatedAvailability', ':newAvailability')->setParameter('newAvailability', $newAvailability)
             ->where('p.calculatedAvailability = :oldAvailability')->setParameter('oldAvailability', $oldAvailability)
             ->getQuery()->execute();

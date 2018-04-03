@@ -195,7 +195,7 @@ class ProductFilterCountRepository
                         'p.id',
                         $this->em->createQueryBuilder()
                             ->select('_p.id')
-                            ->from(Product::class, '_p')
+                            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, '_p')
                             ->join('_p.flags', '_f')
                             ->where('_f IN (:activeFlags)')
                             ->getDQL()

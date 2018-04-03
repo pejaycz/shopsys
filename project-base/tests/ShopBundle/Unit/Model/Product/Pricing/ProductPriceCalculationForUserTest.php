@@ -15,13 +15,12 @@ use Shopsys\FrameworkBundle\Model\Pricing\Price;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPrice;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceCalculation;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceCalculationForUser;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 
 class ProductPriceCalculationForUserTest extends TestCase
 {
     public function testCalculatePriceByUserAndDomainIdWithUser()
     {
-        $product = $this->createMock(Product::class);
+        $product = $this->createMock(\Shopsys\ShopBundle\Model\Product\Product::class);
         $pricingGroup = new PricingGroup(new PricingGroupData('name', 1), 1);
         $billingAddress = $this->createMock(BillingAddress::class);
         $userData = new UserData();
@@ -54,7 +53,7 @@ class ProductPriceCalculationForUserTest extends TestCase
     public function testCalculatePriceByUserAndDomainIdWithoutUser()
     {
         $domainId = 1;
-        $product = $this->createMock(Product::class);
+        $product = $this->createMock(\Shopsys\ShopBundle\Model\Product\Product::class);
         $pricingGroup = new PricingGroup(new PricingGroupData('name', 1), $domainId);
         $expectedProductPrice = new ProductPrice(new Price(1, 1), false);
 

@@ -5,7 +5,6 @@ namespace Shopsys\FrameworkBundle\Model\Pricing\Vat;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Shopsys\FrameworkBundle\Model\Payment\Payment;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Transport\Transport;
 
 class VatRepository
@@ -118,7 +117,7 @@ class VatRepository
         $query = $this->em->createQuery('
             SELECT v
             FROM ' . Vat::class . ' v
-            LEFT JOIN ' . Product::class . ' p WITH p.vat = v
+            LEFT JOIN ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p WITH p.vat = v
             WHERE v.replaceWith IS NOT NULL
             GROUP BY v
             HAVING COUNT(p) = 0');
@@ -169,7 +168,7 @@ class VatRepository
     {
         $query = $this->em->createQuery('
             SELECT COUNT(p)
-            FROM ' . Product::class . ' p
+            FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p
             WHERE p.vat= :vat')
             ->setParameter('vat', $vat);
         return $query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR) > 0;

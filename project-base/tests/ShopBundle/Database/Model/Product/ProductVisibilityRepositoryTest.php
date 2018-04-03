@@ -69,7 +69,7 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $productAgain = $em->getRepository(Product::class)->find($id);
+        $productAgain = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($id);
         /* @var $productAgain \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $productVisibility1 = $em->getRepository(ProductVisibility::class)->findOneBy([
@@ -104,7 +104,7 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $productAgain = $em->getRepository(Product::class)->find($id);
+        $productAgain = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($id);
         /* @var $productAgain \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $productVisibility1 = $em->getRepository(ProductVisibility::class)->findOneBy([
@@ -143,7 +143,7 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $productAgain = $em->getRepository(Product::class)->find($id);
+        $productAgain = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($id);
         /* @var $productAgain \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $this->assertFalse($productAgain->isVisible());
@@ -174,7 +174,7 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $productAgain = $em->getRepository(Product::class)->find($id);
+        $productAgain = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($id);
         /* @var $productAgain \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $this->assertFalse($productAgain->isVisible());
@@ -208,7 +208,7 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $productAgain = $em->getRepository(Product::class)->find($id);
+        $productAgain = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($id);
         /* @var $productAgain \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $this->assertTrue($productAgain->isVisible());
@@ -239,9 +239,9 @@ class ProductVisibilityRepositoryTest extends DatabaseTestCase
         /* @var $productVisibilityRepository \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityRepository */
         $productVisibilityRepository->refreshProductsVisibility();
 
-        $product1Again = $em->getRepository(Product::class)->find($product1Id);
+        $product1Again = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($product1Id);
         /* @var $product1Again \Shopsys\FrameworkBundle\Model\Product\Product */
-        $product2Again = $em->getRepository(Product::class)->find($product2Id);
+        $product2Again = $em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class)->find($product2Id);
         /* @var $product2Again \Shopsys\FrameworkBundle\Model\Product\Product */
 
         $this->assertFalse($product1Again->isVisible());

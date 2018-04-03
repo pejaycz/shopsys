@@ -274,7 +274,7 @@ class OrderDataFixture
 
         $qb = $this->em->createQueryBuilder()
             ->select('p.id')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->where('p.id >= :firstPerformanceProductId')
             ->andWhere('p.variantType != :mainVariantType')
             ->setParameter('firstPerformanceProductId', $firstPerformanceProduct->getId())

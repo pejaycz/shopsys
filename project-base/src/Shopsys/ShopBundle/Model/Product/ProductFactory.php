@@ -18,8 +18,9 @@ class ProductFactory extends BaseProductFactory implements ProductFactoryInterfa
     /**
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductDataFactory $productDataFactory
      */
-    public function __construct(ProductDataFactory $productDataFactory) {
-        $this->productDataFactory = $productDataFactory;
+    public function __construct(ProductDataFactory $productDataFactory)
+    {
+        parent::__construct($productDataFactory);
     }
 
     /**
@@ -36,8 +37,17 @@ class ProductFactory extends BaseProductFactory implements ProductFactoryInterfa
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductData $productData
      * @return \Shopsys\ShopBundle\Model\Product\Product
      */
-    public function create(ProductData $productData) {
+    public function create(ProductData $productData)
+    {
         $product = Product::create($productData);
+        $product->setExtId(10);
+
+        return $product;
+    }
+
+    public function createMainVariant(ProductData $productData, array $variants)
+    {
+        $product = Product::createMainVariant($productData, $variants);
         $product->setExtId(10);
 
         return $product;

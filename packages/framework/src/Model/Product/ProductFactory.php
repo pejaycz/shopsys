@@ -2,8 +2,6 @@
 
 namespace Shopsys\FrameworkBundle\Model\Product;
 
-use Shopsys\FrameworkBundle\Model\Product\ProductFactory as BaseProductFactory;
-
 class ProductFactory implements ProductFactoryInterface
 {
 
@@ -15,7 +13,8 @@ class ProductFactory implements ProductFactoryInterface
     /**
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductDataFactory $productDataFactory
      */
-    public function __construct(ProductDataFactory $productDataFactory) {
+    public function __construct(ProductDataFactory $productDataFactory)
+    {
         $this->productDataFactory = $productDataFactory;
     }
 
@@ -33,7 +32,13 @@ class ProductFactory implements ProductFactoryInterface
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductData $productData
      * @return \Shopsys\FrameworkBundle\Model\Product\Product
      */
-    public function create(ProductData $productData) {
+    public function create(ProductData $productData)
+    {
         return Product::create($productData);
+    }
+
+    public function createMainVariant(ProductData $productData, array $variants)
+    {
+        return Product::createMainVariant($productData, $variants);
     }
 }

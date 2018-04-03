@@ -22,15 +22,16 @@ class Product extends BaseProduct
     /**
      * @return int
      */
-    public function getExtId() {
+    public function getExtId()
+    {
         return $this->extId;
     }
 
     /**
      * @param int $extId
      */
-    public function setExtId(int $extId) {
+    public function setExtId(int $extId)
+    {
         $this->extId = $extId;
     }
-
 }

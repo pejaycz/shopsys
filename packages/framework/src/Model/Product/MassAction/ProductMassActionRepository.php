@@ -3,7 +3,6 @@
 namespace Shopsys\FrameworkBundle\Model\Product\MassAction;
 
 use Doctrine\ORM\EntityManager;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 
 class ProductMassActionRepository
 {
@@ -25,7 +24,7 @@ class ProductMassActionRepository
     public function setHidden(array $selectedProductIds, $hidden)
     {
         $updateQueryBuilder = $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.hidden', ':value')->setParameter('value', $hidden)
             ->set('p.recalculateVisibility', 'TRUE')
             ->where('p.id IN (:productIds)')->setParameter('productIds', $selectedProductIds);

@@ -6,7 +6,6 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Shopsys\FrameworkBundle\Model\AdvancedSearch\AdvancedSearchFilterInterface;
 use Shopsys\FrameworkBundle\Model\Product\Brand\BrandFacade;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductBrandFilter implements AdvancedSearchFilterInterface
@@ -84,7 +83,7 @@ class ProductBrandFilter implements AdvancedSearchFilterInterface
         }
 
         if (count($isNotBrand) > 0) {
-            $subQuery = 'SELECT brand_p.id FROM ' . Product::class . ' brand_p
+            $subQuery = 'SELECT brand_p.id FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' brand_p
                 JOIN brand_p.brand _f WITH _f.id IN (:isNotBrand)';
             $queryBuilder->andWhere('p.id NOT IN (' . $subQuery . ')');
             $queryBuilder->setParameter('isNotBrand', $isNotBrand);

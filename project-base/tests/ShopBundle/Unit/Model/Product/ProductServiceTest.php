@@ -263,7 +263,7 @@ class ProductServiceTest extends TestCase
             $productPriceRecalculationSchedulerMock
         );
 
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['markForVisibilityRecalculation', 'isMainVariant', 'isVariant'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -305,13 +305,13 @@ class ProductServiceTest extends TestCase
             $productPriceRecalculationSchedulerMock
         );
 
-        $variantMock = $this->getMockBuilder(Product::class)
+        $variantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['markForVisibilityRecalculation'])
             ->disableOriginalConstructor()
             ->getMock();
         $variantMock->expects($this->atLeastOnce())->method('markForVisibilityRecalculation');
 
-        $mainVariantMock = $this->getMockBuilder(Product::class)
+        $mainVariantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['markForVisibilityRecalculation', 'isMainVariant', 'isVariant', 'getVariants'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -354,13 +354,13 @@ class ProductServiceTest extends TestCase
             $productPriceRecalculationSchedulerMock
         );
 
-        $mainVariantMock = $this->getMockBuilder(Product::class)
+        $mainVariantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['markForVisibilityRecalculation'])
             ->disableOriginalConstructor()
             ->getMock();
         $mainVariantMock->expects($this->once())->method('markForVisibilityRecalculation');
 
-        $variantMock = $this->getMockBuilder(Product::class)
+        $variantMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['markForVisibilityRecalculation', 'isMainVariant', 'isVariant', 'getMainVariant'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -380,13 +380,13 @@ class ProductServiceTest extends TestCase
         $pricingSettingMock = $this->createMock(PricingSetting::class);
         $productPriceRecalculationSchedulerMock = $this->createMock(ProductPriceRecalculationScheduler::class);
 
-        $productMock1 = $this->getMockBuilder(Product::class)
+        $productMock1 = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['getId'])
             ->disableOriginalConstructor()
             ->getMock();
         $productMock1->method('getId')->willReturn(1);
 
-        $productMock2 = $this->getMockBuilder(Product::class)
+        $productMock2 = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['getId'])
             ->disableOriginalConstructor()
             ->getMock();

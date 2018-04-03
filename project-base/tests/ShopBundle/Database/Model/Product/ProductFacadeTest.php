@@ -122,7 +122,7 @@ class ProductFacadeTest extends DatabaseTestCase
         $productEditDataFactory = $this->getServiceByType(ProductEditDataFactory::class);
         /* @var $productEditDataFactory \Shopsys\FrameworkBundle\Model\Product\ProductEditDataFactory */
 
-        $reflectionClass = new ReflectionClass(Product::class);
+        $reflectionClass = new ReflectionClass(\Shopsys\ShopBundle\Model\Product\Product::class);
         $reflectionPropertyRecalculateVisibility = $reflectionClass->getProperty('recalculateVisibility');
         $reflectionPropertyRecalculateVisibility->setAccessible(true);
         $reflectionPropertyRecalculateVisibility->setValue($product, false);

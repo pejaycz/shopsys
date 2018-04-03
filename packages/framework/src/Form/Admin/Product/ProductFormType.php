@@ -107,6 +107,7 @@ class ProductFormType extends AbstractType
         }
 
         $builder
+            ->add('extId', TextType::class)
             ->add('name', LocalizedType::class, [
                 'required' => false,
                 'entry_options' => [
@@ -288,7 +289,7 @@ class ProductFormType extends AbstractType
     {
         $resolver
             ->setRequired('product')
-            ->setAllowedTypes('product', [Product::class, 'null'])
+            ->setAllowedTypes('product', [\Shopsys\ShopBundle\Model\Product\Product::class, 'null'])
             ->setDefaults([
                 'data_class' => ProductData::class,
                 'attr' => ['novalidate' => 'novalidate'],

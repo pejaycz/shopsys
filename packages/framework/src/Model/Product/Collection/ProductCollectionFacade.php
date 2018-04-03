@@ -9,7 +9,6 @@ use Shopsys\FrameworkBundle\Component\Image\ImageRepository;
 use Shopsys\FrameworkBundle\Component\Router\FriendlyUrl\FriendlyUrlRepository;
 use Shopsys\FrameworkBundle\Component\Router\FriendlyUrl\FriendlyUrlService;
 use Shopsys\FrameworkBundle\Model\Product\Parameter\ParameterRepository;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductRepository;
 
 class ProductCollectionFacade
@@ -104,7 +103,7 @@ class ProductCollectionFacade
      */
     private function getMainImagesIndexedByProductId(array $products)
     {
-        $productEntityName = $this->imageConfig->getImageEntityConfigByClass(Product::class)->getEntityName();
+        $productEntityName = $this->imageConfig->getImageEntityConfigByClass(\Shopsys\ShopBundle\Model\Product\Product::class)->getEntityName();
         $imagesByProductId = $this->imageRepository->getMainImagesByEntitiesIndexedByEntityId($products, $productEntityName);
 
         return $this->productCollectionService->getImagesIndexedByProductId($products, $imagesByProductId);

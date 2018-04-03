@@ -36,7 +36,7 @@ class ProductHiddenRecalculator
     private function executeQuery(Product $product = null)
     {
         $qb = $this->em->createQueryBuilder()
-            ->update(Product::class, 'p')
+            ->update(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->set('p.calculatedHidden', '
                 CASE
                     WHEN p.usingStock = TRUE

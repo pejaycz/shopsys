@@ -15,7 +15,7 @@ class OrderProductTest extends TestCase
     public function testEditWithProduct()
     {
         $orderMock = $this->createMock(Order::class);
-        $productMock = $this->createMock(Product::class);
+        $productMock = $this->createMock(\Shopsys\ShopBundle\Model\Product\Product::class);
         $productPrice = new Price(0, 0);
 
         $orderItemData = new OrderItemData();

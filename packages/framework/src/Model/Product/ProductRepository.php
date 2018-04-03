@@ -66,7 +66,7 @@ class ProductRepository
      */
     private function getProductRepository()
     {
-        return $this->em->getRepository(Product::class);
+        return $this->em->getRepository(\Shopsys\ShopBundle\Model\Product\Product::class);
     }
 
     /**
@@ -136,7 +136,7 @@ class ProductRepository
     {
         $queryBuilder = $this->em->createQueryBuilder()
             ->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->join(ProductVisibility::class, 'prv', Join::WITH, 'prv.product = p.id')
             ->where('prv.domainId = :domainId')
                 ->andWhere('prv.pricingGroup = :pricingGroup')
@@ -585,7 +585,7 @@ class ProductRepository
     {
         $query = $this->em->createQuery('
             SELECT p
-            FROM ' . Product::class . ' p
+            FROM ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p
             JOIN p.vat v
             WHERE v.replaceWith IS NOT NULL
         ');
@@ -662,7 +662,7 @@ class ProductRepository
     public function markAllProductsForAvailabilityRecalculation()
     {
         $this->em
-            ->createQuery('UPDATE ' . Product::class . ' p SET p.recalculateAvailability = TRUE
+            ->createQuery('UPDATE ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p SET p.recalculateAvailability = TRUE
                 WHERE p.recalculateAvailability = FALSE')
             ->execute();
     }
@@ -674,7 +674,7 @@ class ProductRepository
         // and visibility recalculation is triggered by variant price recalculation.
         // Therefore main variant price recalculation is useless here.
         $this->em
-            ->createQuery('UPDATE ' . Product::class . ' p SET p.recalculatePrice = TRUE
+            ->createQuery('UPDATE ' . \Shopsys\ShopBundle\Model\Product\Product::class . ' p SET p.recalculatePrice = TRUE
                 WHERE p.variantType != :variantTypeMain AND p.recalculateAvailability = FALSE')
             ->setParameter('variantTypeMain', Product::VARIANT_TYPE_MAIN)
             ->execute();
@@ -743,7 +743,7 @@ class ProductRepository
     {
         $queryBuilder = $this->em->createQueryBuilder()
             ->select('p')
-            ->from(Product::class, 'p')
+            ->from(\Shopsys\ShopBundle\Model\Product\Product::class, 'p')
             ->andWhere('p.calculatedVisibility = TRUE')
             ->andWhere('p.calculatedSellingDenied = FALSE')
             ->andWhere('p.variantType = :variantTypeVariant')->setParameter('variantTypeVariant', Product::VARIANT_TYPE_VARIANT)

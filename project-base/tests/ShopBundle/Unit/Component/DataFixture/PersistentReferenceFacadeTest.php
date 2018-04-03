@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use Shopsys\FrameworkBundle\Component\DataFixture\PersistentReference;
 use Shopsys\FrameworkBundle\Component\DataFixture\PersistentReferenceFacade;
 use Shopsys\FrameworkBundle\Component\DataFixture\PersistentReferenceRepository;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use stdClass;
 
 class PersistentReferenceFacadeTest extends TestCase
@@ -49,7 +48,7 @@ class PersistentReferenceFacadeTest extends TestCase
         $expectedException = new \Shopsys\FrameworkBundle\Component\DataFixture\Exception\PersistentReferenceNotFoundException('newReferenceName');
         $persistentReferenceRepositoryMock->method('getByReferenceName')->willThrowException($expectedException);
 
-        $productMock = $this->getMockBuilder(Product::class)
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)
             ->setMethods(['getId'])
             ->disableOriginalConstructor()
             ->getMock();

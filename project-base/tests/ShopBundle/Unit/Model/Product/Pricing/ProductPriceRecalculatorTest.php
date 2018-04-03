@@ -13,14 +13,13 @@ use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPrice;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceCalculation;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceRecalculationScheduler;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceRecalculator;
-use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductService;
 
 class ProductPriceRecalculatorTest extends TestCase
 {
     public function testRunImmediatelyRecalculations()
     {
-        $productMock = $this->getMockBuilder(Product::class)->setMethods(null)->disableOriginalConstructor()->getMock();
+        $productMock = $this->getMockBuilder(\Shopsys\ShopBundle\Model\Product\Product::class)->setMethods(null)->disableOriginalConstructor()->getMock();
         $pricingGroupMock = $this->getMockBuilder(PricingGroup::class)->setMethods(null)->disableOriginalConstructor()->getMock();
         $productServiceMock = $this->getMockBuilder(ProductService::class)->setMethods(null)->disableOriginalConstructor()->getMock();
         $emMock = $this->getMockBuilder(EntityManager::class)
