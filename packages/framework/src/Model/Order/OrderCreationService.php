@@ -132,7 +132,7 @@ class OrderCreationService
             $orderPreview->getProductsPrice(),
             $order->getDomainId()
         );
-        $orderPayment = new OrderPayment(
+        $orderPayment = new \Shopsys\ShopBundle\Model\Order\OrderPayment(
             $order,
             $payment->getName($locale),
             $paymentPrice,
@@ -149,7 +149,7 @@ class OrderCreationService
             $orderPreview->getProductsPrice(),
             $order->getDomainId()
         );
-        $orderTransport = new OrderTransport(
+        $orderTransport = new \Shopsys\ShopBundle\Model\Order\OrderTransport(
             $order,
             $transport->getName($locale),
             $transportPrice,
@@ -182,7 +182,7 @@ class OrderCreationService
             $quantifiedItemDiscount = $quantifiedItemDiscounts[$index];
             /* @var $quantifiedItemDiscount \Shopsys\FrameworkBundle\Model\Pricing\Price|null */
 
-            $orderItem = new OrderProduct(
+            $orderItem = new \Shopsys\ShopBundle\Model\Order\OrderProduct(
                 $order,
                 $product->getName($locale),
                 $quantifiedItemPrice->getUnitPrice(),
@@ -207,7 +207,7 @@ class OrderCreationService
     private function fillOrderRounding(Order $order, OrderPreview $orderPreview, $locale)
     {
         if ($orderPreview->getRoundingPrice() !== null) {
-            new OrderProduct(
+            new \Shopsys\ShopBundle\Model\Order\OrderProduct(
                 $order,
                 t('Rounding', [], 'messages', $locale),
                 $orderPreview->getRoundingPrice(),
@@ -235,7 +235,7 @@ class OrderCreationService
             $orderItem->getName()
         );
 
-        new OrderProduct(
+        new \Shopsys\ShopBundle\Model\Order\OrderProduct(
             $orderItem->getOrder(),
             $name,
             new Price(

@@ -78,7 +78,7 @@ class OrderService
         $orderItemsToCreate = [];
         foreach ($orderData->getNewItemsWithoutTransportAndPayment() as $newOrderItemData) {
             $newOrderItemData->priceWithoutVat = $this->orderItemPriceCalculation->calculatePriceWithoutVat($newOrderItemData);
-            $newOrderItem = new OrderProduct(
+            $newOrderItem = new \Shopsys\ShopBundle\Model\Order\OrderProduct(
                 $order,
                 $newOrderItemData->name,
                 new Price(
@@ -108,7 +108,7 @@ class OrderService
     {
         $orderDomainConfig = $this->domain->getDomainConfigById($order->getDomainId());
 
-        $orderProduct = new OrderProduct(
+        $orderProduct = new \Shopsys\ShopBundle\Model\Order\OrderProduct(
             $order,
             $product->getName($orderDomainConfig->getLocale()),
             $productPrice,

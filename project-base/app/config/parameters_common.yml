@@ -22,5 +22,9 @@ parameters:
     {
       Shopsys\FrameworkBundle\Model\Product\Product: Shopsys\ShopBundle\Model\Product\Product,
       Shopsys\FrameworkBundle\Model\Order\Order: Shopsys\ShopBundle\Model\Order\Order,
-      Shopsys\FrameworkBundle\Model\Category\Category: Shopsys\ShopBundle\Model\Category\Category
+      Shopsys\FrameworkBundle\Model\Category\Category: Shopsys\ShopBundle\Model\Category\Category,
+      Shopsys\FrameworkBundle\Model\Order\Item\OrderItem: Shopsys\ShopBundle\Model\Order\OrderItem,
+      Shopsys\FrameworkBundle\Model\Order\Item\OrderProduct: Shopsys\ShopBundle\Model\Order\OrderProduct,
+      Shopsys\FrameworkBundle\Model\Order\Item\OrderTransport: Shopsys\ShopBundle\Model\Order\OrderTransport,
+      Shopsys\FrameworkBundle\Model\Order\Item\OrderPayment: Shopsys\ShopBundle\Model\Order\OrderPayment
     }

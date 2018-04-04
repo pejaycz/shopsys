@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Shopsys\FrameworkBundle\Model\Customer\User;
 use Shopsys\FrameworkBundle\Model\Order\Item\OrderItem;
-use Shopsys\FrameworkBundle\Model\Order\Item\OrderPayment;
-use Shopsys\FrameworkBundle\Model\Order\Item\OrderProduct;
-use Shopsys\FrameworkBundle\Model\Order\Item\OrderTransport;
+use Shopsys\ShopBundle\Model\Order\OrderTransport;
+use Shopsys\ShopBundle\Model\Order\OrderProduct;
+use Shopsys\ShopBundle\Model\Order\OrderPayment;
 use Shopsys\FrameworkBundle\Model\Order\Status\OrderStatus;
 use Shopsys\FrameworkBundle\Model\Pricing\Price;
 

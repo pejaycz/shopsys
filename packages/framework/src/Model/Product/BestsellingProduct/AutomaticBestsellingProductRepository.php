@@ -43,7 +43,7 @@ class AutomaticBestsellingProductRepository
         $queryBuilder
             ->addSelect('COUNT(op) AS HIDDEN orderCount')
             ->join(ProductCalculatedPrice::class, 'pcp', Join::WITH, 'pcp.product = p')
-            ->join(OrderProduct::class, 'op', Join::WITH, 'op.product = p')
+            ->join(\Shopsys\ShopBundle\Model\Order\OrderProduct::class, 'op', Join::WITH, 'op.product = p')
             ->join('op.order', 'o')
             ->join('o.status', 'os')
             ->andWhere('pcp.pricingGroup = prv.pricingGroup')
