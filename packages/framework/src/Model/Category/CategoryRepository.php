@@ -13,6 +13,7 @@ use Shopsys\FrameworkBundle\Model\Pricing\Group\PricingGroup;
 use Shopsys\FrameworkBundle\Model\Product\Product;
 use Shopsys\FrameworkBundle\Model\Product\ProductCategoryDomain;
 use Shopsys\FrameworkBundle\Model\Product\ProductRepository;
+use Shopsys\ShopBundle\Model\Category\Category as ExtendedCategory;
 
 class CategoryRepository extends NestedTreeRepository
 {
@@ -35,7 +36,7 @@ class CategoryRepository extends NestedTreeRepository
     public function __construct(EntityManager $em, ProductRepository $productRepository)
     {
         $this->em = $em;
-        $classMetadata = $this->em->getClassMetadata(Category::class);
+        $classMetadata = $this->em->getClassMetadata(ExtendedCategory::class);
         $this->productRepository = $productRepository;
         parent::__construct($this->em, $classMetadata);
     }
@@ -45,7 +46,7 @@ class CategoryRepository extends NestedTreeRepository
      */
     private function getCategoryRepository()
     {
-        return $this->em->getRepository(Category::class);
+        return $this->em->getRepository(ExtendedCategory::class);
     }
 
     /**
@@ -540,7 +541,7 @@ class CategoryRepository extends NestedTreeRepository
         $queryBuilder = $this->getAllVisibleByDomainIdQueryBuilder($domainId);
 
         $queryBuilder
-            ->join(Category::class, 'cc', Join::WITH, 'cc.parent = c')
+            ->join(ExtendedCategory::class, 'cc', Join::WITH, 'cc.parent = c')
             ->join(CategoryDomain::class, 'ccd', Join::WITH, 'ccd.category = cc.id')
             ->andWhere('ccd.domainId = :domainId')
             ->andWhere('ccd.visible = TRUE')

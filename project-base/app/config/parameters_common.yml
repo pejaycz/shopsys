@@ -21,5 +21,6 @@ parameters:
   shopsys.entity_extension.map:
     {
       Shopsys\FrameworkBundle\Model\Product\Product: Shopsys\ShopBundle\Model\Product\Product,
-      Shopsys\FrameworkBundle\Model\Order\Order: Shopsys\ShopBundle\Model\Order\Order
+      Shopsys\FrameworkBundle\Model\Order\Order: Shopsys\ShopBundle\Model\Order\Order,
+      Shopsys\FrameworkBundle\Model\Category\Category: Shopsys\ShopBundle\Model\Category\Category
     }

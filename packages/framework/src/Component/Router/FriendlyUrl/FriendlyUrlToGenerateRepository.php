@@ -75,7 +75,7 @@ class FriendlyUrlToGenerateRepository
         $queryBuilder = $this->em->createQueryBuilder()
             ->select('c.id, ct.name')
             ->distinct()
-            ->from(Category::class, 'c')
+            ->from(\Shopsys\ShopBundle\Model\Category\Category::class, 'c')
             ->join('c.translations', 'ct', Join::WITH, 'ct.locale = :locale')
             ->setParameter('locale', $domainConfig->getLocale())
             ->leftJoin(FriendlyUrl::class, 'f', Join::WITH, 'c.id = f.entityId AND f.routeName = :routeName AND f.domainId = :domainId')

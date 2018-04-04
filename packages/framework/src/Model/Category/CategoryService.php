@@ -2,6 +2,8 @@
 
 namespace Shopsys\FrameworkBundle\Model\Category;
 
+use ShopSys\ShopBundle\Model\Category\Category;
+
 class CategoryService
 {
     /**

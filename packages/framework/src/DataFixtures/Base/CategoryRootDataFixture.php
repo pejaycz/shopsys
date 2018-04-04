@@ -6,9 +6,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Shopsys\FrameworkBundle\Component\DataFixture\AbstractReferenceFixture;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
-use Shopsys\FrameworkBundle\Model\Category\Category;
 use Shopsys\FrameworkBundle\Model\Category\CategoryData;
 use Shopsys\FrameworkBundle\Model\Category\CategoryDomain;
+use ShopSys\ShopBundle\Model\Category\Category;
 
 class CategoryRootDataFixture extends AbstractReferenceFixture implements DependentFixtureInterface
 {

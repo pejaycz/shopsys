@@ -58,7 +58,7 @@ class ProductVisibilityRepository
         $affectedProductsDql = $this->em->createQueryBuilder()
             ->select('IDENTITY(pcd.product)')
             ->from(ProductCategoryDomain::class, 'pcd')
-            ->join(Category::class, 'c', Join::WITH, 'c = pcd.category AND c.lft >= :lft AND c.rgt <= :rgt')
+            ->join(\Shopsys\ShopBundle\Model\Category\Category::class, 'c', Join::WITH, 'c = pcd.category AND c.lft >= :lft AND c.rgt <= :rgt')
             ->getDQL();
 
         $this->em->createQueryBuilder()

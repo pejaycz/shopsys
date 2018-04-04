@@ -276,7 +276,7 @@ class CategoryFormType extends AbstractType
     {
         $resolver
             ->setRequired(['scenario', 'category'])
-            ->setAllowedTypes('category', [Category::class, 'null'])
+            ->setAllowedTypes('category', [\Shopsys\ShopBundle\Model\Category\Category::class, 'null'])
             ->setAllowedValues('scenario', [self::SCENARIO_CREATE, self::SCENARIO_EDIT])
             ->setDefaults([
                 'data_class' => CategoryData::class,

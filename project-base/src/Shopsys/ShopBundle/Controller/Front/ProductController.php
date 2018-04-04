@@ -139,6 +139,7 @@ class ProductController extends FrontBaseController
     public function listByCategoryAction(Request $request, $id)
     {
         $category = $this->categoryFacade->getVisibleOnDomainById($this->domain->getId(), $id);
+        d($category->getAdmin()->getUsername());
 
         $requestPage = $request->get(self::PAGE_QUERY_PARAMETER);
         if (!$this->isRequestPageValid($requestPage)) {
