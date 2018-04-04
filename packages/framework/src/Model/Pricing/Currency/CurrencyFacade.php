@@ -9,7 +9,7 @@ use Shopsys\FrameworkBundle\Model\Payment\PaymentPrice;
 use Shopsys\FrameworkBundle\Model\Payment\PaymentRepository;
 use Shopsys\FrameworkBundle\Model\Pricing\PricingSetting;
 use Shopsys\FrameworkBundle\Model\Product\Pricing\ProductPriceRecalculationScheduler;
-use Shopsys\FrameworkBundle\Model\Transport\TransportPrice;
+use Shopsys\ShopBundle\Model\Product\TransportPrice;
 use Shopsys\FrameworkBundle\Model\Transport\TransportRepository;
 
 class CurrencyFacade

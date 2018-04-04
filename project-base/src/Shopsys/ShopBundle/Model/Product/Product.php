@@ -43,6 +43,13 @@ class Product extends BaseProduct
     protected $users;
 
     /**
+     * @var \Shopsys\FrameworkBundle\Model\Transport\TransportPrice[]
+     *
+     * @ORM\OneToMany(targetEntity="Shopsys\ShopBundle\Model\Product\TransportPrice", mappedBy="product", cascade={"persist"})
+     */
+    protected $prices;
+
+    /**
      * @return int
      */
     public function getExtId()
@@ -64,6 +71,14 @@ class Product extends BaseProduct
     public function getUsers()
     {
         return $this->users->toArray();
+    }
+
+    /**
+     * @return \Shopsys\FrameworkBundle\Model\Transport\TransportPrice[]
+     */
+    public function getPrices()
+    {
+        return $this->prices->toArray();
     }
 
 }

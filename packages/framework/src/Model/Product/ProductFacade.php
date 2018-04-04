@@ -167,6 +167,7 @@ class ProductFacade
         d($data->fieldMappings['catnum']);
         d($product);
         d($product->getUsers());
+        d($product->getPrices());
         return $product;
     }
 

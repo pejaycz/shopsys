@@ -26,5 +26,6 @@ parameters:
       Shopsys\FrameworkBundle\Model\Order\Item\OrderItem: Shopsys\ShopBundle\Model\Order\OrderItem,
       Shopsys\FrameworkBundle\Model\Order\Item\OrderProduct: Shopsys\ShopBundle\Model\Order\OrderProduct,
       Shopsys\FrameworkBundle\Model\Order\Item\OrderTransport: Shopsys\ShopBundle\Model\Order\OrderTransport,
-      Shopsys\FrameworkBundle\Model\Order\Item\OrderPayment: Shopsys\ShopBundle\Model\Order\OrderPayment
+      Shopsys\FrameworkBundle\Model\Order\Item\OrderPayment: Shopsys\ShopBundle\Model\Order\OrderPayment,
+      Shopsys\FrameworkBundle\Model\Transport\TransportPrice: Shopsys\ShopBundle\Model\Product\TransportPrice,
     }
