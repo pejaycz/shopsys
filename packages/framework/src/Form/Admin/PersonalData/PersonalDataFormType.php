@@ -12,9 +12,13 @@ class PersonalDataFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', CKEditorType::class, [
+            ->add('contentDisplayPerosnalData', CKEditorType::class, [
                 'required' => false,
             ])
+            ->add('contentExportPersonalData', CKEditorType::class, [
+                'required' => false,
+
+                ])
             ->add('save', SubmitType::class);
     }
 }

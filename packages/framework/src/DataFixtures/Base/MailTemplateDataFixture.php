@@ -86,6 +86,15 @@ class MailTemplateDataFixture extends AbstractReferenceFixture
             team of {domain}';
 
         $this->createMailTemplate($manager, MailTemplate::PERSONAL_DATA_ACCESS_NAME, $mailTemplateData);
+
+        $mailTemplateData->subject = 'Personal information overview - {domain}';
+        $mailTemplateData->body = 'Dear customer, <br /><br />
+           {url} <br/>
+            The link is valid for next 24 hours.<br/>
+            Best Regards <br/><br/>
+            team of {domain}';
+
+        $this->createMailTemplate($manager, MailTemplate::PERSONAL_DATA_EXPORT_NAME, $mailTemplateData);
     }
 
     private function createMailTemplate(

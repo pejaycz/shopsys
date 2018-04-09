@@ -16,6 +16,7 @@ use Shopsys\FrameworkBundle\Model\Order\Mail\OrderMailService;
 use Shopsys\FrameworkBundle\Model\Order\Status\OrderStatus;
 use Shopsys\FrameworkBundle\Model\Order\Status\OrderStatusFacade;
 use Shopsys\FrameworkBundle\Model\PersonalData\Mail\PersonalDataAccessMail;
+use Shopsys\FrameworkBundle\Model\PersonalData\Mail\PersonalDataExportMail;
 use Symfony\Component\HttpFoundation\Request;
 
 class MailController extends AdminBaseController
@@ -60,6 +61,11 @@ class MailController extends AdminBaseController
      */
     private $personalDataAccessMail;
 
+    /**
+     * @var \Shopsys\FrameworkBundle\Model\PersonalData\Mail\PersonalDataExportMail
+     */
+    private $personalDataExportMail;
+
     public function __construct(
         ResetPasswordMail $resetPasswordMail,
         OrderMailService $orderMailService,
@@ -68,7 +74,8 @@ class MailController extends AdminBaseController
         MailTemplateFacade $mailTemplateFacade,
         MailSettingFacade $mailSettingFacade,
         OrderStatusFacade $orderStatusFacade,
-        PersonalDataAccessMail $personalDataAccessMail
+        PersonalDataAccessMail $personalDataAccessMail,
+        PersonalDataExportMail $personalDataExportMail
     ) {
         $this->resetPasswordMail = $resetPasswordMail;
         $this->orderMailService = $orderMailService;
@@ -78,6 +85,7 @@ class MailController extends AdminBaseController
         $this->mailSettingFacade = $mailSettingFacade;
         $this->orderStatusFacade = $orderStatusFacade;
         $this->personalDataAccessMail = $personalDataAccessMail;
+        $this->personalDataExportMail = $personalDataExportMail;
     }
 
     /**
@@ -140,6 +148,18 @@ class MailController extends AdminBaseController
             PersonalDataAccessMail::VARIABLE_DOMAIN => t('E-shop name'),
             PersonalDataAccessMail::VARIABLE_EMAIL => t('E-mail'),
             PersonalDataAccessMail::VARIABLE_URL => t('E-shop URL address'),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function getPersonalExportVariablesLabels()
+    {
+        return [
+            PersonalDataExportMail::VARIABLE_DOMAIN => t('E-shop name'),
+            PersonalDataExportMail::VARIABLE_EMAIL => t('E-mail'),
+            PersonalDataExportMail::VARIABLE_URL => t('E-shop URL address'),
         ];
     }
 
@@ -239,6 +259,11 @@ class MailController extends AdminBaseController
             $selectedDomainId
         );
 
+        $personalDataExportTemplate = $this->mailTemplateFacade->get(
+            MailTemplate::PERSONAL_DATA_EXPORT_NAME,
+            $selectedDomainId
+        );
+
         return [
             'orderStatusesIndexedById' => $this->orderStatusFacade->getAllIndexedById(),
             'orderStatusMailTemplatesByOrderStatusId' => $orderStatusMailTemplatesByOrderStatusId,
@@ -256,6 +281,10 @@ class MailController extends AdminBaseController
             'personalDataAccessVariables' => $this->personalDataAccessMail->getSubjectVariables(),
             'personalDataAccessRequiredVariablesLabels' => $this->personalDataAccessMail->getRequiredBodyVariables(),
             'personalDataAccessVariablesLabels' => $this->getPersonalDataAccessVariablesLabels(),
+            'personalDataExportTemplate' => $personalDataExportTemplate,
+            'personalDataExportVariables' => $this->personalDataExportMail->getSubjectVariables(),
+            'personalDataExportRequiredVariablesLabels' => $this->personalDataExportMail->getRequiredBodyVariables(),
+            'personalDataExportVariablesLabels' => $this->getPersonalExportVariablesLabels(),
         ];
     }
 }

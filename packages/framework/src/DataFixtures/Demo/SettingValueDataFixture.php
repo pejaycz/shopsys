@@ -46,7 +46,7 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
         $this->setting->setForDomain(Setting::COOKIES_ARTICLE_ID, $cookies->getId(), Domain::FIRST_DOMAIN_ID);
         $this->setting->setForDomain(Setting::TERMS_AND_CONDITIONS_ARTICLE_ID, $termsAndConditions->getId(), Domain::FIRST_DOMAIN_ID);
         $this->setting->setForDomain(Setting::PRIVACY_POLICY_ARTICLE_ID, $privacyPolicy->getId(), Domain::FIRST_DOMAIN_ID);
-        $this->setting->setForDomain(Setting::PERSONAL_DATA_SITE_CONTENT, $personalDataSiteContent, Domain::FIRST_DOMAIN_ID);
+        $this->setting->setForDomain(Setting::PERSONAL_DATA_DISPLAY_SITE_CONTENT, $personalDataSiteContent, Domain::FIRST_DOMAIN_ID);
     }
 
     /**

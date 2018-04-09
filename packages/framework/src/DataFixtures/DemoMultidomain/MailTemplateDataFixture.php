@@ -112,6 +112,18 @@ class MailTemplateDataFixture extends AbstractReferenceFixture
             tým {domain}';
 
         $this->updateMailTemplate($mailTemplateData);
+
+        $mailTemplateData = new MailTemplateData();
+        $mailTemplateData->name = MailTemplate::PERSONAL_DATA_EXPORT_NAME;
+        $mailTemplateData->sendMail = true;
+        $mailTemplateData->subject = 'Export osobních údajů -  {domain}';
+        $mailTemplateData->body = 'Vážený zákazníku, <br /><br />
+           {url}<br/>
+            Odkaz je platný 24 hodin.<br/><br/>
+            S pozdravem<br/>
+            tým {domain}';
+
+        $this->updateMailTemplate($mailTemplateData);
     }
 
     /**

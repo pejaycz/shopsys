@@ -74,7 +74,7 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
          Pro ověření vaší totožnosti vám po zadání e-mailové adresy bude zaslán e-mail s odkazem. 
          Klikem na odkaz se dostanete na stránku s přehledem těchto osobních údajů - půjde o všechny údaje evidované k dané e-mailové adrese.';
 
-        $this->setting->setForDomain(Setting::PERSONAL_DATA_SITE_CONTENT, $personalDataSiteContent, 2);
+        $this->setting->setForDomain(Setting::PERSONAL_DATA_DISPLAY_SITE_CONTENT, $personalDataSiteContent, 2);
     }
 
     /**
