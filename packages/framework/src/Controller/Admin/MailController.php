@@ -228,6 +228,8 @@ class MailController extends AdminBaseController
 
     /**
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     private function getTemplateParameters()
     {

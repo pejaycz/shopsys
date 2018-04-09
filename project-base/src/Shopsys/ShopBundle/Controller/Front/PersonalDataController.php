@@ -9,6 +9,7 @@ use Shopsys\FrameworkBundle\Model\Customer\CustomerFacade;
 use Shopsys\FrameworkBundle\Model\Newsletter\NewsletterFacade;
 use Shopsys\FrameworkBundle\Model\Order\OrderFacade;
 use Shopsys\FrameworkBundle\Model\PersonalData\Mail\PersonalDataAccessMailFacade;
+use Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequest;
 use Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequestFacade;
 use Shopsys\ShopBundle\Form\Front\PersonalData\PersonalDataFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,8 +76,10 @@ class PersonalDataController extends FrontBaseController
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
+            $data = $form->getData();
+            $data->type = PersonalDataAccessRequest::PERSONAL_DATA_DISPLAY;
             $personalData = $this->personalDataAccessRequestFacade->createPersonalDataAccessRequest(
-                $form->getData(),
+                $data,
                 $this->domain->getId()
             );
             $this->personalDataAccessMailFacade->sendMail($personalData);
@@ -84,7 +87,31 @@ class PersonalDataController extends FrontBaseController
         }
 
         return $this->render('@ShopsysShop/Front/Content/PersonalData/index.html.twig', [
-            'personalDataSiteContent' => $this->getPersonalDataSiteContent(),
+            'personalDataSiteContent' => $this->getPersonalDataSiteContent(Setting::PERSONAL_DATA_DISPLAY_SITE_CONTENT),
+            'title' => t('Personal information overview'),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function exportAction(Request $request)
+    {
+        $form = $this->createForm(PersonalDataFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isValid() && $form->isSubmitted()) {
+            $personalData = $form->getData();
+            $personalData->type = PersonalDataAccessRequest::PERSONAL_DATA_EXPORT;
+            $personalData = $this->personalDataAccessRequestFacade->createPersonalDataAccessRequest(
+                $personalData,
+                $this->domain->getId()
+            );
+            $this->personalDataAccessMailFacade->sendMail($personalData);
+            $this->getFlashMessageSender()->addSuccessFlash(t('Email with link to personal data access site was sent'));
+        }
+
+        return $this->render('@ShopsysShop/Front/Content/PersonalData/index.html.twig', [
+            'personalDataSiteContent' => $this->getPersonalDataSiteContent(Setting::PERSONAL_DATA_EXPORT_SITE_CONTENT),
+            'title' => t('Export customer data'),
             'form' => $form->createView(),
         ]);
     }
@@ -92,9 +119,13 @@ class PersonalDataController extends FrontBaseController
     /**
      * @param string $hash
      */
-    public function accessAction($hash)
+    public function accessDisplayAction($hash)
     {
-        $personalDataAccessRequest = $this->personalDataAccessRequestFacade->findEmailByHashAndDomainId($hash, $this->domain->getId());
+        $personalDataAccessRequest = $this->personalDataAccessRequestFacade->findEmailByHashAndDomainId(
+            $hash,
+            PersonalDataAccessRequest::PERSONAL_DATA_DISPLAY,
+            $this->domain->getId()
+        );
 
         if ($personalDataAccessRequest !== null) {
             $user = $this->customerFacade->findUserByEmailAndDomain(
@@ -121,11 +152,29 @@ class PersonalDataController extends FrontBaseController
         throw new NotFoundHttpException();
     }
 
+    public function accessExportAction($hash)
+    {
+        $personalDataAccessRequest = $this->personalDataAccessRequestFacade->findEmailByHashAndDomainId(
+            $hash,
+            PersonalDataAccessRequest::PERSONAL_DATA_EXPORT,
+            $this->domain->getId()
+        );
+
+        if ($personalDataAccessRequest !== null) {
+            return $this->render('@ShopsysShop/Front/Content/PersonalData/export.html.twig', [
+                    'personalDataSiteContent' => $this->getPersonalDataSiteContent(Setting::PERSONAL_DATA_EXPORT_SITE_CONTENT),
+                ]);
+        }
+
+        throw new NotFoundHttpException();
+    }
+
     /**
+     * @param string $settingKey
      * @return string|null
      */
-    private function getPersonalDataSiteContent()
+    private function getPersonalDataSiteContent($settingKey)
     {
-        return $this->setting->getForDomain(Setting::PERSONAL_DATA_DISPLAY_SITE_CONTENT, $this->domain->getId());
+        return $this->setting->getForDomain($settingKey, $this->domain->getId());
     }
 }

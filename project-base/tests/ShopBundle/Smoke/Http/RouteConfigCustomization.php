@@ -358,7 +358,18 @@ class RouteConfigCustomization
                     ->setExpectedStatusCode(302);
             })
             ->customizeByRouteName('front_personal_data_access', function (RouteConfig $config) {
-                $personalDataAccessRequest = $this->getPersistentReference(PersonalDataAccessRequestDataFixture::VALID_ACCESS_REQUEST);
+                $personalDataAccessRequest = $this->getPersistentReference(PersonalDataAccessRequestDataFixture::VALID_ACCESS_DISPLAY_REQUEST);
+                /* @var $personalDataAccessRequest \Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequest */
+
+                $config->changeDefaultRequestDataSet('Check personal data site with wrong hash')
+                    ->setParameter('hash', 'invalidHash')
+                    ->setExpectedStatusCode(404);
+                $config->addExtraRequestDataSet('Check personal data site with right hash')
+                    ->setParameter('hash', $personalDataAccessRequest->getHash())
+                    ->setExpectedStatusCode(200);
+            })
+            ->customizeByRouteName('front_personal_data_access_export', function (RouteConfig $config) {
+                $personalDataAccessRequest = $this->getPersistentReference(PersonalDataAccessRequestDataFixture::VALID_ACCESS_EXPORT_REQUEST);
                 /* @var $personalDataAccessRequest \Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequest */
 
                 $config->changeDefaultRequestDataSet('Check personal data site with wrong hash')

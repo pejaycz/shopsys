@@ -150,7 +150,7 @@ class PersonalDataExportMail implements MailTypeInterface, MessageFactoryInterfa
         ];
 
         return $router->generate(
-            'front_personal_data_access',
+            'front_personal_data_access_export',
             $routeParameters,
             UrlGeneratorInterface::ABSOLUTE_URL
         );

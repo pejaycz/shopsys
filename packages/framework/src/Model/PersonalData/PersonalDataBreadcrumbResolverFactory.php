@@ -12,9 +12,13 @@ class PersonalDataBreadcrumbResolverFactory implements BreadcrumbGeneratorInterf
      */
     public function getBreadcrumbItems($routeName, array $routeParameters = [])
     {
-        return [
-            new BreadcrumbItem(t('Personal information overview')),
-        ];
+        if (strpos($routeName, 'export'))
+        {
+            $breadcrumbItem = new BreadcrumbItem(t('Export customer data'));
+        }else{
+            $breadcrumbItem =  new BreadcrumbItem(t('Personal information overview'));
+        }
+     return [$breadcrumbItem];
     }
 
     /**
@@ -25,6 +29,8 @@ class PersonalDataBreadcrumbResolverFactory implements BreadcrumbGeneratorInterf
         return [
             'front_personal_data',
             'front_personal_data_access',
+            'front_personal_data_export',
+            'front_personal_data_access_export',
         ];
     }
 }

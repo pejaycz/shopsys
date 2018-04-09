@@ -23,10 +23,12 @@ class PersonalDataAccessRequestRepository
 
     /**
      * @param string $hash
+     * @param string $type
      * @param int $domainId
+     * @throws \Doctrine\ORM\NonUniqueResultException
      * @return \Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequest|null
      */
-    public function findByHashAndDomainId($hash, $domainId)
+    public function findByHashAndDomainId($hash, $type, $domainId)
     {
         $dateTime = new DateTime('-1 day');
 
@@ -34,10 +36,12 @@ class PersonalDataAccessRequestRepository
             ->where('pdar.hash = :hash')
             ->andWhere('pdar.domainId = :domainId')
             ->andWhere('pdar.createdAt >= :createdAt')
+            ->andWhere('pdar.type = :type')
             ->setParameters([
                 'domainId' => $domainId,
                 'hash' => $hash,
                 'createdAt' => $dateTime,
+                'type' => $type,
             ])
             ->getQuery()->getOneOrNullResult();
     }
