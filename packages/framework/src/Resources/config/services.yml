@@ -558,8 +558,6 @@ services:
   Shopsys\FrameworkBundle\Model\Payment\PaymentFacade:
     public: true
 
-  Shopsys\FrameworkBundle\Model\PluginData\DoctrinePluginDataStorageProvider: ~
-
   Shopsys\FrameworkBundle\Model\Pricing\Currency\CurrencyFacade:
     public: true
 
