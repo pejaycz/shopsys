@@ -1,0 +1,39 @@
+{% block begin %}
+<?xml version="1.0" encoding="utf-8"?>
+    {% endblock %}
+
+{% block item %}
+<customers>
+    <customer>
+
+    {% if user is not null %}
+        <customer_name>
+            <firstname>{{ user.firstName }}</firstname>
+            <lastname>{{ user.lastName }}</lastname>
+            <phone>{{ user.billingAddress.telephone }}</phone>
+            <email>{{ user.email }}</email>
+        </customer_name>
+   {% endif %}
+
+        {% if user.billingAdress is defined or user.deliveryAddress is defined %}
+            {% include '@ShopsysShop/Front/Content/PersonalData/adress.xml.twig' with {'user' : user} %}
+        {% endif %}
+            {% if user.billingAddress is defined %}
+            {% if user.billingAddress.companyCustomer %}
+                {% set addr = user.billingAddress %}
+            <customer_company>
+                {% if addr.companyName is not null %}<company_name> {{ addr.companyName }}</company_name> {% endif %}
+                {% if addr.companyNumber is not null %}<company_registration_number>{{ addr.companyNumber }}</company_registration_number> {% endif %}
+                {% if addr.companyTaxNumber is not null %}<company_vat_registration_number>{{ addr.companyTaxNumber }}</company_vat_registration_number> {% endif %}
+            </customer_company>
+        {% endif %}
+        {% endif %}
+
+        <newsletterSubscriber> {% if newsletterSubscriber is null %} No {% else %} YES {% endif %} </newsletterSubscriber>
+        {% if orders|length > 0 %}
+        {% include('@ShopsysShop/Front/Content/PersonalData/orders.xml.twig' ) with {'orders': orders} %}
+        {% endif %}
+
+    </customer>
+</customers>
+{% endblock %}

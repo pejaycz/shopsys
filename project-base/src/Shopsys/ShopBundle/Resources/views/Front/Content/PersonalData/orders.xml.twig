@@ -1,0 +1,55 @@
+<customer_orders>
+    {% for order in orders %}
+        <order>
+            <order_id>{{ order.number }}</order_id>
+            <order_create_date>{{ order.createdAt|date }}</order_create_date>
+            <order_status>{{ order.status.name }}</order_status>
+            <firstname>{{ order.firstName }}</firstname>
+            <lastname>{{ order.lastName }}</lastname>
+            <phone> {{ order.telephone }}</phone>
+            <email> {{ order.email }}</email>
+            <order_addresses>
+                <address>
+                    <address_type>billing</address_type>
+                    <street>{{ order.street }}</street>
+                    <city>{{ order.city }}</city>
+                    <postal_code>{{ order.postCode }}</postal_code>
+                    <country_code>{{ order.country.name }}</country_code>
+                </address>
+                {% if order.deliveryAddressSameAsBillingAddress == false %}
+                    <address>
+                        <address_type>delivery</address_type>
+                        <contact_name>
+                            {% if order.deliveryFirstName is not null %} <firstname>{{ order.deliveryFirstName }}</firstname> {% endif %}
+                            {% if order.deliveryLastName is not null %} <lastname><![CDATA[{{ order.deliveryLastName }}]]></lastname> {% endif %}
+                            {% if order.deliveryCompanyName is not null %} <company_name>{{ order.deliveryCompanyName }}</company_name> {% endif %}
+                        </contact_name>
+                        {% if order.deliveryStreet is not null %}<street>{{ order.deliveryStreet }}</street> {% endif %}
+                        {% if order.deliveryCity is not null %}<city>{{ order.deliveryCity }}</city> {% endif %}
+                        {% if order.deliveryPostCode is not null %}<postal_code>{{ order.deliveryPostcode }}</postal_code> {% endif %}
+                        {% if order.deliveryCountry is not null %} <country_code>{{ order.deliveryCountry.name }}</country_code> {% endif %}
+                    </address>
+                {% endif %}
+            </order_addresses>
+            <company>
+                {% if order.companyName is not null %}<company_name> {{ order.companyName }}</company_name> {% endif %}
+                {% if order.companyNumber is not null %}<company_registration_number>{{ order.companyNumber }}</company_registration_number> {% endif %}
+                {% if order.companyTaxNumber is not null %}<company_vat_registration_number>{{ order.companyTaxNumber }}</company_vat_registration_number> {% endif %}
+            </company>
+
+            <order_items>
+                {% for item in order.items %}
+                    <item>
+                       {% if item.name is not null %} <item_name>{{ item.name }}</item_name> {% endif %}
+                        {% if item.quantity %} <item_quantity>{{ item.quantity }}</item_quantity> {% endif %}
+                        {% if item.unitName %} <item_unit>{{ item.unitName }}</item_unit> {% endif %}
+                        {% if item.priceWithoutVat %}<item_price_without_vat>{{ item.priceWithoutVat }}</item_price_without_vat> {% endif %}
+                        {% if item.priceWithVat %}<item_price_with_vat>{{ item.priceWithVat }}</item_price_with_vat> {% endif %}
+                        {% if order.currency.name %} <item_currency_name>{{ order.currency.name }}</item_currency_name> {% endif %}
+                        {% if order.currency.code %} <item_currency_code>{{ order.currency.code }}</item_currency_code> {% endif %}
+                    </item>
+                {% endfor %}
+            </order_items>
+        </order>
+    {% endfor %}
+</customer_orders>

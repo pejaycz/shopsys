@@ -2,6 +2,7 @@
 
 namespace Shopsys\ShopBundle\Controller\Front;
 
+use DOMDocument;
 use Shopsys\FrameworkBundle\Component\Controller\FrontBaseController;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Component\Setting\Setting;
@@ -12,7 +13,9 @@ use Shopsys\FrameworkBundle\Model\PersonalData\Mail\PersonalDataAccessMailFacade
 use Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequest;
 use Shopsys\FrameworkBundle\Model\PersonalData\PersonalDataAccessRequestFacade;
 use Shopsys\ShopBundle\Form\Front\PersonalData\PersonalDataFormType;
+use SplFileObject;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonalDataController extends FrontBaseController
@@ -128,18 +131,7 @@ class PersonalDataController extends FrontBaseController
         );
 
         if ($personalDataAccessRequest !== null) {
-            $user = $this->customerFacade->findUserByEmailAndDomain(
-                $personalDataAccessRequest->getEmail(),
-                $this->domain->getId()
-            );
-            $orders = $this->orderFacade->getOrderListForEmailByDomainId(
-                $personalDataAccessRequest->getEmail(),
-                $this->domain->getId()
-            );
-            $newsletterSubscriber = $this->newsletterFacade->findNewsletterSubscriberByEmailAndDomainId(
-                $personalDataAccessRequest->getEmail(),
-                $this->domain->getId()
-            );
+            list($user, $orders, $newsletterSubscriber) = $this->getPersonalData($personalDataAccessRequest->getEmail());
 
             return $this->render('@ShopsysShop/Front/Content/PersonalData/detail.html.twig', [
                 'personalDataAccessRequest' => $personalDataAccessRequest,
@@ -161,9 +153,59 @@ class PersonalDataController extends FrontBaseController
         );
 
         if ($personalDataAccessRequest !== null) {
+            $user = $this->customerFacade->findUserByEmailAndDomain($personalDataAccessRequest->getEmail(), $this->domain->getId());
+            $newsletterSubscriber = $this->newsletterFacade->findNewsletterSubscriberByEmailAndDomainId(
+                $personalDataAccessRequest->getEmail(),
+                $this->domain->getId()
+            );
+
+            $orders = $this->orderFacade->getOrderCountForEmailAndDomain(
+                $personalDataAccessRequest->getEmail(),
+                $this->domain->getId()
+            );
+
             return $this->render('@ShopsysShop/Front/Content/PersonalData/export.html.twig', [
                     'personalDataSiteContent' => $this->getPersonalDataSiteContent(Setting::PERSONAL_DATA_EXPORT_SITE_CONTENT),
+                    'hash' => $hash,
+                    'user' => $user,
+                    'newslettersubscriber' => $newsletterSubscriber,
+                    'orders' => $orders,
                 ]);
+        }
+
+        throw new NotFoundHttpException();
+    }
+
+    public function exportXmlAction($hash)
+    {
+        $personalDataAccessRequest = $this->personalDataAccessRequestFacade->findEmailByHashAndDomainId(
+            $hash,
+            PersonalDataAccessRequest::PERSONAL_DATA_EXPORT,
+            $this->domain->getId()
+        );
+
+        if ($personalDataAccessRequest !== null) {
+            list($user, $orders, $newsletterSubscriber) = $this->getPersonalData($personalDataAccessRequest->getEmail());
+            $response = new StreamedResponse();
+            $response->headers->set('Content-Type', 'xml');
+            $response->headers->set('Content-Disposition', 'attachment; filename="'
+                . $personalDataAccessRequest->getEmail() . '.xml"');
+
+            $xmlContent = $this->render('@ShopsysShop/Front/Content/PersonalData/export.xml.twig', [
+                'user' => $user,
+                'newsletterSubscriber' => $newsletterSubscriber,
+                'orders' => $orders,
+
+            ])->getContent();
+
+            $xmlContent = $this->normalizeXml($xmlContent);
+
+            $response->setCallback(function () use (&$xmlContent) {
+                $output = new SplFileObject('php://output', 'w+');
+                $output->fwrite($xmlContent);
+            });
+
+            return $response;
         }
 
         throw new NotFoundHttpException();
@@ -176,5 +218,34 @@ class PersonalDataController extends FrontBaseController
     private function getPersonalDataSiteContent($settingKey)
     {
         return $this->setting->getForDomain($settingKey, $this->domain->getId());
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
+    private function normalizeXml($content)
+    {
+        $document = new DOMDocument('1.0');
+        $document->preserveWhiteSpace = false;
+        $document->formatOutput = true;
+
+        $document->loadXML($content);
+        $generatedXml = $document->saveXML();
+
+        return $generatedXml;
+    }
+
+    /**
+     * @param string $email
+     * @return array
+     */
+    private function getPersonalData($email)
+    {
+        $user = $this->customerFacade->findUserByEmailAndDomain($email, $this->domain->getId());
+        $orders = $this->orderFacade->getOrderListForEmailByDomainId($email, $this->domain->getId());
+        $newsletterSubscriber = $this->newsletterFacade->findNewsletterSubscriberByEmailAndDomainId($email, $this->domain->getId());
+
+        return [$user, $orders, $newsletterSubscriber];
     }
 }

@@ -12,13 +12,12 @@ class PersonalDataBreadcrumbResolverFactory implements BreadcrumbGeneratorInterf
      */
     public function getBreadcrumbItems($routeName, array $routeParameters = [])
     {
-        if (strpos($routeName, 'export'))
-        {
+        if (strpos($routeName, 'export')) {
             $breadcrumbItem = new BreadcrumbItem(t('Export customer data'));
-        }else{
-            $breadcrumbItem =  new BreadcrumbItem(t('Personal information overview'));
+        } else {
+            $breadcrumbItem = new BreadcrumbItem(t('Personal information overview'));
         }
-     return [$breadcrumbItem];
+        return [$breadcrumbItem];
     }
 
     /**

@@ -19,7 +19,9 @@
         <h2>{{ 'No personal data for this email address'|trans }}</h2>
     {% else %}
     <div class="padding-20">
-       <div class="btn btn--medium btn--primary">{{ 'Export data to xml'|trans }}</div>
+        <a href="{{ url('front_export_personal_data', {'hash': hash }) }}" class="btn">
+               {{ 'Export '|trans }}
+           </a>
     </div>
     {% endif %}
 </div>

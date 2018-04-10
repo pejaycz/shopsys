@@ -384,4 +384,13 @@ class OrderFacade
             }
         }
     }
+
+    /**
+     * @param string $email
+     * @param int $domainId
+     */
+    public function getOrderCountForEmailAndDomain($email, $domainId)
+    {
+        return $this->orderRepository->getOrderCountForEmailAndDomain($email, $domainId);
+    }
 }

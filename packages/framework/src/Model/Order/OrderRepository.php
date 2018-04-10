@@ -177,14 +177,7 @@ class OrderRepository
      */
     public function getOrderListForEmailByDomainId($email, $domainId)
     {
-        return $this->em->createQueryBuilder()
-            ->select('o, oi, os, ost, c')
-            ->from(Order::class, 'o')
-            ->join('o.items', 'oi')
-            ->join('o.status', 'os')
-            ->join('os.translations', 'ost')
-            ->join('o.currency', 'c')
-            ->leftJoin('o.customer', 'cu')
+        return $this->getOrderList()
             ->andWhere('o.domainId = :domain')
             ->andWhere('o.email = :email OR cu.email = :email')
             ->orderBy('o.createdAt', 'DESC')
@@ -254,5 +247,31 @@ class OrderRepository
             ->join(Order::class, 'o', Join::WITH, 'o.currency = c.id')
             ->groupBy('c')
             ->getQuery()->execute();
+    }
+
+    public function getOrderCountForEmailAndDomain($email, $domainId)
+    {
+        return $this->getOrderList()
+            ->select('count(o)')
+            ->andWhere('o.domainId = :domain')
+            ->andWhere('o.email = :email OR cu.email = :email')
+            ->setParameter('email', $email)
+            ->setParameter('domain', $domainId)
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function getOrderList()
+    {
+        return $this->em->createQueryBuilder()
+            ->select('o, oi, os, ost, c')
+            ->from(Order::class, 'o')
+            ->join('o.items', 'oi')
+            ->join('o.status', 'os')
+            ->join('os.translations', 'ost')
+            ->join('o.currency', 'c')
+            ->leftJoin('o.customer', 'cu');
     }
 }
