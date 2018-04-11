@@ -10,3 +10,7 @@ services:
     factory: ['@Shopsys\FrameworkBundle\Model\Localization\CustomDateTimeFormatterFactory', create]
 
   Shopsys\FrameworkBundle\Model\Localization\IntlCurrencyRepository: ~
+
+  Shopsys\FrameworkBundle\Model\Newsletter\NewsletterFacade: ~
+
+  Shopsys\FrameworkBundle\Model\Localization\TranslatableListener: ~

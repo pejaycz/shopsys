@@ -1,7 +1,7 @@
 <customer_addresses>
     {% set addr = user.billingAddress %}
     <address>
-        <address_type>{{ 'Billing adress'|trans }}</address_type>
+        <address_type>Billing adress</address_type>
         <street>{{ addr.street }}</street>
         <city>{{ addr.city }}</city>
         <postal_code>{{ addr.postCode }}</postal_code>
@@ -10,7 +10,7 @@
     {% if user.deliveryAddress is not null %}
         <address>
             {% set addr = user.deliveryAddress %}
-            <address_type>{{ 'Delivery adress'|trans }}</address_type>
+            <address_type>Delivery adress</address_type>
             {% if addr.street is not null %} <street>{{ addr.street }}</street> {% endif %}
             {% if addr.city is not null %} <city>{{ addr.city }}</city> {% endif %}
             {% if addr.postCode is not null %} <postal_code>{{ addr.postCode }}</postal_code> {% endif %}
