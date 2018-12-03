@@ -202,14 +202,18 @@ class ProductVisibilityRepository
                                 AND pt.locale = :locale
                                 AND pt.name IS NOT NULL
                         )
-                        AND EXISTS (
-                            SELECT 1
-                            FROM product_category_domains AS pcd
-                            JOIN category_domains AS cd ON cd.category_id = pcd.category_id
-                                AND cd.domain_id = pcd.domain_id
-                            WHERE pcd.product_id = p.id
-                                AND pcd.domain_id = pv.domain_id
-                                AND cd.visible = TRUE
+                        AND (
+                            p.variant_type = :variantTypeVariant
+                            OR
+                            EXISTS (
+                                SELECT 1
+                                FROM product_category_domains AS pcd
+                                JOIN category_domains AS cd ON cd.category_id = pcd.category_id
+                                    AND cd.domain_id = pcd.domain_id
+                                WHERE pcd.product_id = p.id
+                                    AND pcd.domain_id = pv.domain_id
+                                    AND cd.visible = TRUE
+                            )
                         )
                     )
                     THEN TRUE
@@ -233,6 +237,7 @@ class ProductVisibilityRepository
                 'domainId' => $domain->getId(),
                 'pricingGroupId' => $pricingGroup->getId(),
                 'variantTypeMain' => Product::VARIANT_TYPE_MAIN,
+                'variantTypeVariant' => Product::VARIANT_TYPE_VARIANT,
             ]);
         }
     }
